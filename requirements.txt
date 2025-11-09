@@ -7,4 +7,5 @@ tzdata==2025.2
 scipy
 seaborn
 matplotlib
+windrose
 
