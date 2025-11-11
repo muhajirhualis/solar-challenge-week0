@@ -37,7 +37,7 @@
 
 - Branch: `dashboard-dev`  
 - Deployed to **Streamlit Community Cloud**  
-- URL: *(insert your deployment link here)*  
+- URL: *[https://muhajirhualis-solarchallenge-week0.streamlit.app]*  
 
 **Deployment Steps:**
 1. Pushed dashboard branch to GitHub.  

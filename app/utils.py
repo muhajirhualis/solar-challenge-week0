@@ -10,6 +10,7 @@ def load_data():
     }
     dfs = []
     for country, path in paths.items():
+      
         df = pd.read_csv(path)
         df["Country"] = country
         dfs.append(df)
