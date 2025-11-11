@@ -9,3 +9,8 @@ seaborn
 matplotlib
 windrose
 
+# Streamlit 
+streamlit
+pandas
+matplotlib
+seaborn
