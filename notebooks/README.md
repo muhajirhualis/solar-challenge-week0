@@ -1,4 +1,4 @@
-# 📊 Task 2 Report — Data Profiling, Cleaning & Exploratory Data Analysis (EDA)
+# Task 2 Report - Data Profiling, Cleaning & Exploratory Data Analysis (EDA)
 
 **Challenge:** Solar Data Discovery — MoonLight Energy Solutions  
 **Candidate:** *Muhajer Hualis*  
@@ -7,20 +7,20 @@
 
 ---
 
-## 🧭 Objective
+## Objective
 
 To perform **end-to-end exploratory data analysis (EDA)** on the solar radiation and environmental datasets from **Benin**, **Sierra Leone**, and **Togo**.  
 The goal is to identify data quality issues, explore patterns and relationships, and generate actionable insights that support **MoonLight Energy Solutions** in making data-driven solar investment decisions.
 
 ---
 
-## 📁 Datasets Overview
+## Datasets Overview
 
 | Country | Dataset Name | Observations | Columns | Description |
 |----------|-----------------|---------------|-----------|--------------|
-| Benin | `benin-malanville.csv` | ~17,000 | 18 | Solar radiation, temperature, wind, humidity |
-| Sierra Leone | `sierra_leone-bumbuna.csv` | ~16,000 | 18 | Meteorological and solar readings |
-| Togo | `togo-dapaong.csv` | ~15,000 | 18 | Time-series solar and environmental data |
+| Benin | `benin-malanville.csv` | 525600| 18 | Solar radiation, temperature, wind, humidity |
+| Sierra Leone | `sierra_leone-bumbuna.csv` | 525,600 | 18 | Meteorological and solar readings |
+| Togo | `togo-dapaong.csv` | 525,600 | 18 | Time-series solar and environmental data |
 
 Each dataset includes:
 - **Solar radiation measurements:** `GHI`, `DNI`, `DHI`
@@ -31,20 +31,20 @@ Each dataset includes:
 
 ---
 
-## 🧹 Data Profiling & Cleaning
+##  Data Profiling & Cleaning
 
-### 1️⃣ Data Profiling
+### Data Profiling
 - Loaded each dataset using `pandas` and parsed `Timestamp` as `datetime`.  
 - Displayed general information (`df.info()`) and summary statistics (`df.describe()`).  
 - Generated missing value reports (`df.isna().sum()`).
 
-### 🔍 Findings
+### Findings
 - All three datasets were generally **clean and complete**.  
 - Only one column (`Comments`) was **fully empty** across all datasets and was dropped.  
 - No critical missing values detected in numeric columns.  
 - All timestamps correctly parsed and sorted.
 
-### 2️⃣ Data Cleaning
+###  Data Cleaning
 - Removed fully empty columns.  
 - Verified that irradiance values (`GHI`, `DNI`, `DHI`) were non-negative.  
 - Detected potential outliers using **Z-score method (|Z| > 3)** for:
@@ -60,7 +60,7 @@ Each dataset includes:
 
 ## 📈 Exploratory Data Analysis (EDA)
 
-### 1️⃣ Time-Series Analysis
+### 1️. Time-Series Analysis
 - Plotted **GHI, DNI, DHI, and Tamb** over time.  
 - Observed clear **diurnal patterns** — solar irradiance peaks between **11:00 AM and 2:00 PM** in all three countries.
 - Temperature (`Tamb`) rises in correlation with solar intensity.
@@ -70,7 +70,7 @@ Benin and Togo show strong, consistent sunlight intensity patterns. Sierra Leone
 
 ---
 
-### 2️⃣ Cleaning Impact
+### 2️. Cleaning Impact
 - Grouped data by `Cleaning` flag and compared average `ModA` and `ModB` readings before and after cleaning.  
 - Found that post-cleaning readings were **notably higher**, confirming that regular cleaning improves module efficiency.
 
@@ -79,7 +79,7 @@ Cleaning has a measurable positive effect on energy yield across all locations.
 
 ---
 
-### 3️⃣ Correlation Analysis
+### 3️. Correlation Analysis
 - Computed and visualized correlation matrices for key features:
 - **Strong positive correlation:** `GHI ↔ DNI` (r ≈ 0.9)
 - **Negative correlation:** `RH ↔ GHI` and `RH ↔ Tamb`
@@ -90,7 +90,7 @@ High humidity reduces solar irradiance; ambient and module temperatures increase
 
 ---
 
-### 4️⃣ Wind Analysis
+### 4️. Wind Analysis
 - Created wind rose plots using `WD` (wind direction) and `WS` (wind speed).  
 - Found that:
 - Winds are predominantly from **NE** and **SE**.
@@ -101,7 +101,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-### 5️⃣ Distribution & Relationships
+### 5️. Distribution & Relationships
 - Plotted histograms for `GHI`, `WS`, and `Tamb` — most distributions right-skewed.  
 - Created scatter and bubble plots (e.g., `GHI vs Tamb` with bubble size = `RH`) to visualize relationships.
 
@@ -111,7 +111,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 📍 Country-Specific Highlights
+## Country-Specific Highlights
 
 | Country | Key Observations |
 |----------|------------------|
@@ -121,7 +121,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 📊 Visualizations Summary
+## Visualizations Summary
 
 | Visualization Type | Purpose |
 |--------------------|----------|
@@ -133,7 +133,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 🌤️ Key Insights
+## Key Insights
 
 1. **Solar Radiation Trends:**  
  All countries exhibit strong midday peaks, confirming consistent sunlight exposure.
@@ -148,7 +148,37 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 🧰 Tools & Libraries Used
+
+# **Task 3: Cross-Country Comparison**
+
+This task synthesizes cleaned solar datasets from **Benin**, **Sierra Leone**, and **Togo** to identify high-potential regions for MoonLight Energy Solutions’ solar investments.
+
+####  Approach
+- Loaded cleaned CSVs (`benin_clean.csv`, `sierraleone_clean.csv`, `togo_clean.csv`) generated from Task 2.
+- Computed summary statistics (mean, median, std) for key irradiance metrics: **GHI**, **DNI**, **DHI**.
+- Visualized distributions using **separate boxplots per metric**, colored by country for clear comparison.
+- Conducted **one-way ANOVA and Kruskal–Wallis tests** on GHI to assess statistical significance (p < 0.0001 → highly significant).
+- Ranked countries by average GHI and summarized insights in a consolidated dashboard-style table.
+
+####  Key Findings
+| Country      | Avg GHI (W/m²) | Std Dev | Interpretation |
+|--------------|----------------|---------|----------------|
+| **Benin**    | **240.6**      | 331.1   | Highest solar potential; ideal for large-scale deployment |
+| Togo         | 230.5          | 322.5   | Slightly lower yield but more stable output (lower variability) |
+| Sierra Leone | 202.0          | 298.5   | Lowest GHI — likely due to higher humidity/cloud cover; better suited for pilot or off-grid use |
+
+- **Statistical validation**: Both ANOVA and Kruskal–Wallis confirm **significant differences** in GHI across countries (p < 0.0001).
+- **Actionable insight**: Prioritize **Benin** for Phase 1 utility-scale farms; consider **Togo** for reliability-focused projects.
+
+#### Outputs
+- Notebook: [`notebooks/compare_countries.ipynb`](notebooks/compare_countries.ipynb)
+- Visuals: Boxplots (GHI/DNI/DHI), GHI ranking bar chart, summary table
+- Statistical evidence: p-values reported and interpreted
+
+---
+
+
+## Tools & Libraries Used
 
 - **Python:** pandas, numpy, matplotlib, seaborn, scipy  
 - **Environment:** Jupyter Notebook  
@@ -157,7 +187,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## ⚠️ Challenges Encountered
+## Challenges Encountered
 
 - Large time-series data required optimized memory usage.  
 - Distinguishing real irradiance peaks from sensor noise.  
@@ -165,7 +195,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 🧠 Lessons Learned
+## Lessons Learned
 
 - Practical application of EDA workflow on real-world environmental datasets.  
 - Data validation, cleaning, and outlier management techniques.  
@@ -174,7 +204,7 @@ Wind conditions are favorable for solar installations — minimal dust risk and 
 
 ---
 
-## 🏁 Conclusion
+## Conclusion
 
 All three solar datasets were successfully profiled, cleaned, and analyzed.  
 The exploratory analysis revealed key insights into solar patterns, environmental factors, and the operational impact of maintenance activities.  
@@ -183,13 +213,6 @@ The exploratory analysis revealed key insights into solar patterns, environmenta
 
 These findings prepare the foundation for **Task 3: Cross-Country Comparison** and **Task 4: Interactive Dashboard** development.
 
----
-
-### ✅ Deliverables
-- `notebooks/benin_eda.ipynb`  
-- `notebooks/sierra_leone_eda.ipynb`  
-- `notebooks/togo_eda.ipynb`  
-- Cleaned datasets in `/data/` (not committed)
 
 ---
 
